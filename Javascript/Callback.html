@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../CSS/javascript_styles.css">
+	</head>
+	<body>
+		<div class="page_center_container">
+			<p>Press F12 to inspect the console log</p>
+		</div>
+	</body>
+
+	<script>
+
+		// Q: What is call back? Can you explain it?
+		// A: Callback is the way of Javascript's functions
+		//		executed. The functions in Javascript can be
+		//		passed as an argument within another function
+		//		and then return the value to the higher function.
+		//		Another word, the function that does not have
+		//		any function as a parameter will be executed
+		//		first because it does not have to wait for
+		//		other functions to be return their result.
+
+
+		// Example
+		// Below is a callback functions, where the parameter
+		//	of myHomework that was passed won't execute until
+		//	the object of the callback function is returned.
+		//	In this case, console log from myHomeworkCallback's
+		//	parameter is not executed until it has received
+		//	the callback value from the function itself.
+		//	Note that one of the callback will be execute because
+		//	of how my if else statement works. With the nature of
+		//	if-else statement, one function will be called only
+		//	one time in this example, thus, 1 out of 3 callback (or
+		//	callbackError) will be executed. Even though callbackError
+		//	was passed to myHomeworkCallback parameter, but it did not
+		//	execute because it did not get a response from the function
+		//	calling itself.
+
+		let homeworkLeft = 0;
+		// let homeworkLeft = 1;
+		// let homeworkLeft = -2;
+
+		// Function expression for the callback function
+		let myHomeworkCallback = (callback, callbackError, homework) => {
+			if(homework == 0){
+				callback('playing game');
+			} else if (homework > 0){
+				callback('doing homework')
+			} else {
+				callbackError('Amount of homework can\'t be negative!')
+			}
+		}
+
+		// Begin calling callback function
+		myHomeworkCallback((cb) => {console.log('I will be ' + cb)},
+					(err) => {console.log('Error! ' + err)},
+					homeworkLeft)
+
+		
+	</script>
+
+</html>

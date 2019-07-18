@@ -1,0 +1,104 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../CSS/javascript_styles.css">
+	</head>
+	<body>
+		<div class="page_center_container">
+			<p>Press F12 to inspect the console log</p>
+		</div>
+	</body>
+
+	<script>
+
+		// Q: What is Promise, how can we use it, what's the benefit?
+		// A: Promise is an object that will return only one value at the
+		//	time. Promise has two parameter: resolve and reject. Promise
+		//	meant to minimize the complexity of error handling and stir
+		//	the logic in the right direction. Once promise object is created,
+		//	it requires a return message/object from resolve and reject
+		//	cases. The benefit of Promise object is that we can make a
+		//	simplified version of a callback. In real world cases, 
+		//	callbacks can be complex and nested, Promise can be chained
+		//	and easier to read by using "then" statement and "catch"
+		//	for reject state.
+
+		// Example
+		// Below is the code to determine if we can get a milk at
+		//	the place we're heading to. We make place (destination) to
+		//	be grocery and pass it to Promise scope. The Promise object then
+		//	checks if the destination is 'grocery' or not. If it is,
+		//	then the Promise has been resolved! If it is not, then
+		//	reject object is returned. It's important to note that
+		//	Promise ONLY resolves or rejects, it cannot return multiple
+		//	values!
+		//	This gives us a powerful designing pattern that allows
+		//	developers to beautify their code.
+
+
+		let getMilk = destination => new Promise((resolve, reject) => {
+			if(destination == 'grocery'){
+				resolve('Got milk!');
+			} else {
+				reject('Can\'t find milk');
+			}
+		})
+
+		let place = 'grocery'
+		// let place = 'SpaceX'
+
+		getMilk(place).then((message) =>{
+			console.log('Resolved: ' + message);
+		}).catch((message) =>{
+			console.log('Rejected: ' + message);
+		})
+
+		// Below is how to use chaining in Promise
+
+		completeClasses = true;
+ 		signupGradWalk = true;
+ 		haveGradParty = true;
+
+		let graduate = completeClasses => (
+			new Promise((resolve, reject) => {
+				if(completeClasses){
+					resolve(true);
+				} else {
+					reject(false);
+				}
+			})
+		)
+
+
+		graduate(completeClasses).then((res) => {
+			if(res){
+				console.log('Completed classes');
+				return true;
+			} else {
+				console.log('You did not satisfy the condition');
+				return false;
+			}
+		}).then((completeClassesFirst) => {
+			if(completeClassesFirst && signupGradWalk){
+				console.log('Completed signup for grad walk');
+				return true;
+			} else {
+				console.log('You did not satisfy the condition');
+				return false;
+			}
+		}).then((signupGradWalkFirst) => {
+			if(signupGradWalkFirst && haveGradParty){
+				console.log('Completed making grad party!');
+				return true;
+			} else {
+				console.log('You did not satisfy the condition');
+				return false;
+			}
+		}).catch((rej) => {
+			console.log('You did not complete the classes');
+		})
+
+
+
+	</script>
+
+</html>
